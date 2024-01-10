@@ -62,6 +62,17 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to flight_booking_website application." });
 });
 
+app.post('/api/login', (req, res) => {
+  const { email, password } = req.body;
+
+  // Replace the following condition with your actual admin credentials validation logic
+  if (email === 'admin@example.com' && password === 'admin') {
+    res.json({ isAdmin: true });
+  } else {
+    res.status(401).json({ isAdmin: false });
+  }
+});
+
 require("./app/routes/airlines.routes")(app);
 require("./app/routes/countries.routes")(app);
 require("./app/routes/webpages.routes")(app);
