@@ -28,7 +28,7 @@ function splitArray(arr, chunkSize) {
 async function forloop(collection_name, matches, title, body, lang = "en", slug, newdata = {}, eng_slug, comm_slug, query) {
   let arrayToInsert = []
   let langObj = { "en": "english", "es": "spanish" }
-  let data = await collection_name.find().limit(4)
+  let data = await collection_name.find()
 
   data = data.filter(entry => !title.includes(entry[langObj[lang]]));
 
@@ -329,7 +329,7 @@ exports.create = async (req, res) => {
       let eng_name = ""
       let eng_slug = ""
 
-      let data = await collection_name.find().limit(4)
+      let data = await collection_name.find()
 
       // console.log(key+'----', data,matches[key][0]);
 
@@ -374,7 +374,7 @@ exports.create = async (req, res) => {
         // console.log('modifiedString---',modifiedString);
         //console.log('[key]',req.body.data[key])
 
-        let data2 = await collection_name.find().limit(4)
+        let data2 = await collection_name.find()
         // console.log(data2);
         // console.log(langObj);
         data2 = data2.filter(item => item[langObj[key]] !== replacementValue);
