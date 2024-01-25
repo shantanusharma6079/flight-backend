@@ -4,10 +4,7 @@ module.exports = mongoose => {
       title: String,
       languages: Object,
       category: String,
-      // country_code: String,
-      // english: String,
-      // spanish: String,
-      //published: Boolean
+      data: Object,
     },
     { timestamps: true }
   );

@@ -9,16 +9,17 @@ module.exports = app => {
   router.post("/filter", page_types.filter);
   // Retrieve all page_types
   router.get("/", page_types.findAll);
-
+  
   // Retrieve all published page_types
   router.get("/published", page_types.findAllPublished);
   router.get("/allcount", page_types.allcount);
 
   // Retrieve a single Tutorial with id
   router.get("/:id", page_types.findOne);
-
+  
   // Update a Tutorial with id
   router.put("/:id", page_types.update);
+  router.put("/add-data/:id", page_types.addData);
 
   // Delete a Tutorial with id
   router.delete("/:id", page_types.delete);

@@ -246,39 +246,9 @@ exports.create = async (req, res) => {
   } else {
     slugs['en'] = req.body.page_type;
   }
-  //return;
-
-  //let array = req.body.page_type.split(' ')
-
-  // console.log('slugs ==> '+JSON.stringify(slugs));
-
-  // const slugObj = {};
-
-  // for await (let key of Object.keys(slugs)) {
-  //   let narr = [];
-
-  //   if (typeof slugs[key] === 'string') {
-  //     for await (const searchString of categories) {
-  //       const regex = new RegExp(escapeRegExp(searchString), 'g');
-  //       let match;
-  //       while ((match = regex.exec(slugs[key])) !== null) {
-  //         narr.push(match[0]);
-  //       }
-  //     }
-  //   }
-
-  //   slugObj[key] = narr;
-  // }
-
-  // function escapeRegExp(string) {
-  //   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  // }
 
   const slugObj = {};
   for await (let key of Object.keys(slugs)) {
-    // console.log(slugs[key]);
-    //const re = isAnyStringExistInArrayNode(categories, slugs[key]);
-
     let narr = []
     if (typeof slugs[key] === 'string') {
       for await (const searchString of categories) {
@@ -290,11 +260,6 @@ exports.create = async (req, res) => {
 
     slugObj[key] = narr;
   }
-  /* for (let i = 0; i < array.length; i++) {
-    if(categories.indexOf(array[i]) !== -1){
-      matches.push(array[i]);
-    }
-  } */
 
   let body_arr = {}
   for await (let key of Object.keys(req.body.data)) {
@@ -429,23 +394,7 @@ exports.create = async (req, res) => {
           if (matches[key].length == 3 && arr2.length > 0) {
 
             for await (const arr2val of arr2) {
-
-              /*let modifiedSlug2;
-              if(arr2val.slug){
-                const oslug2 = arr2val.slug
-                modifiedSlug2 = oslug2.replace(new RegExp(searchVariable.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), replacementValue);
-                console.log(modifiedSlug2)
-              }
- 
-              let ndata = convertToData(arr2val.data,searchVariable,replacementValue)
- 
-              let url3 = (modifiedSlug2?modifiedSlug2:arr2val.slug) */
-
-              // console.log('common_slug', arr2val.common_slug);
               let arr3 = await forloop(catobj[matches[key][2]], matches[key][2], arr2val.title, req.body, key, arr2val.slug, arr2val.data, arr2val.title, arr2val.common_title, query)
-
-              //console.log('parmas',catobj[matches[key][2]],matches[key][2],arr2val.title,req.body,key,arr2val.slug,arr2val.data);
-              //console.log('arr3arr3444',arr3); return;
 
               arrayToInsert = arrayToInsert.concat(arr3)
               // console.log(arr3);
@@ -509,7 +458,7 @@ exports.create = async (req, res) => {
           } else eng_name = myvar[langObj[key]]
           const searchVariable = body_arr[key][i];
           const replacementValue = eng_name;
- 
+
           for (let i = 0; i < arrayToInsert.length; i++) {
  
             console.log('arrayToInsert.data',arrayToInsert[i].data)
@@ -526,9 +475,6 @@ exports.create = async (req, res) => {
     console.log("arrayToInsert2-----",arrayToInsert) */
 
     //return;
-
-
-
   }
 
   const filteredArray = removeDuplicates(arrayToInsert, 'title');

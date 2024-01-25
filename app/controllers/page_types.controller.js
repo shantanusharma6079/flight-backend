@@ -75,6 +75,32 @@ exports.create = (req, res) => {
     });
 };
 
+exports.addData = async (req, res) => {
+  const { id } = req.params;
+  const { data } = req.body;
+
+  try {
+    // Find the Page_types document by ID
+    const pageType = await Page_types.findById(id);
+
+    // Check if the Page_types document exists
+    if (!pageType) {
+      return res.status(404).json({ message: 'PageType not found.' });
+    }
+
+    // Update the data field
+    pageType.data = data;
+
+    // Save the updated document
+    const updatedPageType = await pageType.save();
+
+    res.json(updatedPageType);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error updating PageType data.' });
+  }
+}
+
 // Retrieve all Page_typess from the database.
 exports.findAll = (req, res) => {
   const title = req.query.title;
