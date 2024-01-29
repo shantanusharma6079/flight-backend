@@ -147,6 +147,7 @@ exports.getLatestFlights = async (req, res) => {
 exports.findCheapestFlights = async (req, res) => {
     try {
         const values = req.body.query;
+        const limit = req.body.flightsNumber * 4;
         const objPlace = {
             '%city%': 'Origin.CityName',
             '%city2%': 'Destination.CityName',
@@ -170,7 +171,7 @@ exports.findCheapestFlights = async (req, res) => {
         // Fetch cheapest flights based on total price
         const flights = await Flights.find(queryString)
             .sort({ 'Flight.Price.TotalDisplayFare': 'asc' })
-            .limit(12); // Adjust the limit as needed
+            .limit(limit); // Adjust the limit as needed
 
         res.json({ flights, queryString });
     } catch (error) {
@@ -184,6 +185,7 @@ exports.findCheapestFlights = async (req, res) => {
 exports.findDirectFlights = async (req, res) => {
     try {
         const values = req.body.query;
+        const limit = req.body.flightsNumber * 4;
         const objPlace = {
             '%city%': 'Origin.CityName',
             '%city2%': 'Destination.CityName',
@@ -207,7 +209,7 @@ exports.findDirectFlights = async (req, res) => {
 
         // Fetch direct flights (StopsNumber = 0)
         const flights = await Flights.find(queryString)
-            .limit(12); // Adjust the limit as needed
+            .limit(limit); // Adjust the limit as needed
 
         res.json({ flights, queryString });
     } catch (error) {
