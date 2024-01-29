@@ -112,6 +112,7 @@ exports.findBySlug = async (req, res) => {
 exports.getLatestFlights = async (req, res) => {
     try {
         const values = req.body.query;
+        const limit = req.body.flightsNumber * 4;
         const objPlace = {
             '%city%': 'Origin.CityName',
             '%city2%': 'Destination.CityName',
@@ -132,7 +133,7 @@ exports.getLatestFlights = async (req, res) => {
         console.log('Current Time:', currentTime);
         console.log('Query String:', queryString);
 
-        const flights = await Flights.find(queryString).sort({ 'Origin.DateTime': 'asc' }).limit(12);
+        const flights = await Flights.find(queryString).sort({ 'Origin.DateTime': 'asc' }).limit(limit);
 
         res.json({ flights, queryString });
     } catch (error) {
