@@ -124,9 +124,8 @@ exports.filter = (req, res) => {
   var condition = {}
   if (req.body.category) condition['category'] = req.body.category;
   if (req.body.page_type) condition['page_type'] = req.body.page_type;
-  console.log(condition)
-  if (Object.keys(condition).length > 0) {
 
+  if (Object.keys(condition).length > 0) {
     Page_types.find(condition)
       .then(data => {
         res.send(data);
@@ -137,12 +136,9 @@ exports.filter = (req, res) => {
             err.message || "Some error occurred while retrieving page_typess."
         });
       });
-
   } else {
     res.send({ 'msg': 'filter params empty', 'status': false });
-
   }
-
 };
 
 // Find a single Page_types with an id
