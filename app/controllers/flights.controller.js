@@ -218,8 +218,6 @@ exports.findDirectFlights = async (req, res) => {
     }
 };
 
-
-
 exports.getFlightsByRoute = async (req, res) => {
     try {
         const { originCode, destinationCode } = req.query;
@@ -250,3 +248,38 @@ exports.deleteAll = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
+exports.getPriceOfDates = async (req, res) => {
+    try {
+        // Extract origin and destination codes from query parameters
+        const { originCode, destinationCode } = req.query;
+
+        // Fetch flights data from the database based on the origin and destination codes
+        const flightsData = await Flights.find({
+            'Origin.AirportCode': originCode,
+            'Destination.AirportCode': destinationCode
+        });
+
+        // Construct JSON response with lowest TotalDisplayFare for each DepartDate
+        const lowestPrices = {};
+        flightsData.forEach(flight => {
+            const departDate = flight.Origin.DateTime.split('T')[0]; // Extracting DepartDate and removing time
+            const totalPrice = flight.Flight.Price.TotalDisplayFare; // TotalDisplayFare
+            if (!lowestPrices[departDate] || totalPrice < lowestPrices[departDate]) {
+                lowestPrices[departDate] = totalPrice; // Storing lowest price for each DepartDate
+            }
+        });
+
+        // Convert date keys to date strings without the time part
+        const formattedPrices = {};
+        for (const date in lowestPrices) {
+            formattedPrices[new Date(date).toISOString().split('T')[0]] = lowestPrices[date];
+        }
+
+        // Send the constructed JSON response
+        res.json(formattedPrices);
+    } catch (error) {
+        console.error('Error fetching flights:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}

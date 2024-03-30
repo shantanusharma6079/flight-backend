@@ -20,6 +20,7 @@ module.exports = app => {
   router.get("/code/:code", airports.findByCode);
   router.get("/country-code/:code", airports.findByCountry);
   router.get("/search", airports.findByQuery);
+  router.get("/nearest-airport", airports.getNearestAirport);
 
   // Update a Tutorial with id
   router.put("/:id", airports.update);

@@ -9,6 +9,8 @@ module.exports = mongoose => {
       code: String,
       english: String,
       spanish: String,
+      latitude: String,
+      longitude: String
       //published: Boolean
     },
     { timestamps: true }

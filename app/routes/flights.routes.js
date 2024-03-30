@@ -11,6 +11,8 @@ module.exports = app => {
     router.post("/direct-flights", flights.findDirectFlights);
     router.delete("/oneway/delete-all", flights.deleteAll);
     router.get("/oneway/find", flights.getFlightsByRoute);
+    router.get("/get-prices", flights.getPriceOfDates);
+
     // router.post("/return/add", flights.rtcreate);
 
     // Create a new Tutorial
