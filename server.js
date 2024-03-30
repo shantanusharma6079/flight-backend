@@ -27,8 +27,7 @@ app.use(bodyParser.urlencoded({extended: true, limit: '50mb'}))
 var corsOptions = {
   origin: [
     "http://localhost:3000",
-    "https://flight-project-two.vercel.app",
-    "https://flight-project-43xnmjs01-shantanubwii76-gmailcom.vercel.app"
+    "https://flight-project-five.vercel.app"
   ]
 };
 
