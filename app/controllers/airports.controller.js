@@ -228,44 +228,54 @@ exports.findByCountry = (req, res) => {
     });
 };
 
-exports.findByQuery = (req, res) => {
+exports.findByQuery = async (req, res) => {
   const query = req.query.query; // Assuming the query parameter is named 'query'
   const originCountry = req.query.origincountry;
 
   if (!query) {
-    return res.status(400).send({
-      message: "Query parameter is required for search.",
-    });
+      return res.status(400).send({
+          message: "Query parameter is required for search.",
+      });
   }
 
   // Use a case-insensitive regular expression for a flexible search
   const regexQuery = new RegExp(query, "i");
 
   const airportQuery = {
-    $or: [
-      { english: regexQuery },
-      { airport_name: regexQuery },
-      { code: regexQuery },
-    ],
+      $or: [
+          { english: regexQuery },
+          { airport_name: regexQuery },
+          { code: regexQuery },
+      ],
   };
 
-  const sortCriteria = [];
-  if (originCountry) {
-    // If origin country is provided, prioritize airports in the same country
-    sortCriteria.push({ country_code: originCountry });
-  }
+  try {
+      let data = await Airports.find(airportQuery).exec();
 
-  Airports.find(airportQuery)
-    .sort(sortCriteria)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving airports.",
+      // Sorting in memory
+      data.sort((a, b) => {
+          // Custom sorting logic here
+          if (originCountry && a.country_code === originCountry && b.country_code !== originCountry) {
+              return -1; // 'a' comes first if it matches origin country
+          } else if (originCountry && b.country_code === originCountry && a.country_code !== originCountry) {
+              return 1; // 'b' comes first if it matches origin country
+          } else {
+              // Default sorting based on airport name
+              const indexA = a.english.toLowerCase().indexOf(query.toLowerCase());
+              const indexB = b.english.toLowerCase().indexOf(query.toLowerCase());
+              if (indexA === 0 && indexB !== 0) return -1;
+              if (indexB === 0 && indexA !== 0) return 1;
+              return 0;
+          }
       });
-    });
+
+      // Send sorted data as JSON response
+      res.json(data);
+  } catch (err) {
+      res.status(500).send({
+          message: err.message || "Some error occurred while retrieving airports.",
+      });
+  }
 };
 
 exports.getNearestAirport = async (req, res) => {
