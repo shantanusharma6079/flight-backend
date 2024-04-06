@@ -6,7 +6,7 @@ module.exports = app => {
     // Create a new flight
     router.post("/", inquiry.create);
     router.get("/", inquiry.getAllInquiries);
-    router.put("/:inquiryId/status", inquiry.updateStatus);
+    router.post("/:inquiryId/status", inquiry.updateStatus);
     router.delete("/delete", inquiry.deleteAll);
 
     app.use("/api/inquiry", router);
