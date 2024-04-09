@@ -6,6 +6,7 @@ module.exports = app => {
     // Create a new flight
     router.post("/", inquiry.create);
     router.get("/", inquiry.getAllInquiries);
+    router.get("/:type", inquiry.getTypeInquiries);
     router.post("/:inquiryId/status", inquiry.updateStatus);
     router.delete("/delete", inquiry.deleteAll);
 

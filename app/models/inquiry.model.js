@@ -14,6 +14,8 @@ module.exports = (mongoose) => {
       email: String,
       phone: Number,
       formData: Object,
+      offerId: String,
+      type: String,
       status: String,
       comments: [commentSchema],
       // Origin: Object,
