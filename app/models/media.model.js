@@ -5,6 +5,7 @@ module.exports = mongoose => {
       type: String,
       category: String,
       subcategory: String,
+      alt: String
       //published: Boolean
     },
     { timestamps: true }

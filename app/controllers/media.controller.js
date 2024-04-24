@@ -17,7 +17,8 @@ exports.create = (req, res) => {
     image: req.file.filename,
     category: req.body.category,
     subcategory: req.body.subcategory,
-    type: req.body.type
+    type: req.body.type,
+    alt: req.body.alt
   });
 
   // Save Media in the database

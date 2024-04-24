@@ -81,7 +81,7 @@ require("./app/routes/cities.routes")(app);
 require("./app/routes/airports.routes")(app);
 require("./app/routes/flights.routes")(app);
 require("./app/routes/inquiry.routes")(app);
-require("./app/routes/contactHelpYou.routes")(app);
+require("./app/routes/tickets.routes")(app);
 require("./app/routes/media.routes")(app,upload);
 app.use('/images', express.static(__dirname+'/uploads/'));
 

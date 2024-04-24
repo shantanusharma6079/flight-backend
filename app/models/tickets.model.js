@@ -6,6 +6,7 @@ module.exports = mongoose => {
         description: String,
         number: Number,
         file_attachments:String,
+        status: String
         //published: Boolean
       },
       { timestamps: true }
@@ -17,7 +18,7 @@ module.exports = mongoose => {
       return object;
     });
   
-   const ContactHelpYou = mongoose.model("contacthelpyou", schema);
-   return ContactHelpYou
+   const Ticket = mongoose.model("tickets", schema);
+   return Ticket
   };
   

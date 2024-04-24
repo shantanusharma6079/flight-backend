@@ -16,7 +16,7 @@ db.airports = require("./airports.model.js")(mongoose);
 db.media = require("./media.model.js")(mongoose);
 db.flights = require("./flights.model.js")(mongoose);
 db.inquiry = require("./inquiry.model.js")(mongoose);
-db.contactHelpYou = require("./ContactHelpYou.model.js")(mongoose);
+db.tickets = require("./tickets.model.js")(mongoose);
 db.cmsPages = require("./cmsPages.model.js")(mongoose);
 
 module.exports = db;
