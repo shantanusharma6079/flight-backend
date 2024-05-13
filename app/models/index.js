@@ -18,5 +18,9 @@ db.flights = require("./flights.model.js")(mongoose);
 db.inquiry = require("./inquiry.model.js")(mongoose);
 db.tickets = require("./tickets.model.js")(mongoose);
 db.cmsPages = require("./cmsPages.model.js")(mongoose);
+db.FAQCategory = require("./faqCategory.model.js")(mongoose);
+db.faqArticle = require("./faqArticle.model.js")(mongoose);
+db.faqQuestion = require("./faqQuestion.model.js")(mongoose);
+db.FAQ = require("./faq.model.js")(mongoose);
 
 module.exports = db;

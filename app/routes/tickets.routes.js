@@ -6,7 +6,7 @@ module.exports = (app) => {
 
   // Create a new Tutorial
   router.post("/", Tickets.createTicket);
-  router.get("/", Tickets.getTicket);
+  router.get("/:page", Tickets.getTicket);
   router.get("/:id", Tickets.getTicketById);
   router.delete("/:id", Tickets.TicketDeleteById);
   router.put('/tickets/:ticketId/status', Tickets.updateTicketStatus);

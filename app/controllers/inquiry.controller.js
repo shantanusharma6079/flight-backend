@@ -49,10 +49,24 @@ exports.getAllInquiries = async (req, res) => {
 
 exports.getTypeInquiries = async (req, res) => {
   const type = req.params.type;
+  const page = parseInt(req.params.page) || 1; // Default to page 1 if page parameter is not provided
+  const limit = 10; // Number of inquiries per page
 
   try {
-    const inquiries = await Inquiry.find({type: type});
-    res.send(inquiries);
+    const count = await Inquiry.countDocuments({ type: type });
+    const totalPages = Math.ceil(count / limit);
+
+    const inquiries = await Inquiry.find({ type: type })
+      .sort({ createdAt: -1 }) // Sort by creation date in descending order (latest first)
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .exec();
+
+    res.send({
+      inquiries: inquiries,
+      currentPage: page,
+      totalPages: totalPages
+    });
   } catch (error) {
     console.error("Error calling API:", error.message);
     res.status(500).json({ error: "Internal Server Error" });

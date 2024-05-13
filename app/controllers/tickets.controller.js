@@ -27,9 +27,24 @@ exports.createTicket = async (req, res) => {
 };
 
 exports.getTicket = async (req, res) => {
+  const page = parseInt(req.params.page) || 1; // Default to page 1 if page parameter is not provided
+  const limit = 5; // Number of tickets per page
+
   try {
-    const data = await Ticket.find({});
-    res.json(data);
+    const count = await Ticket.countDocuments({});
+    const totalPages = Math.ceil(count / limit);
+
+    const tickets = await Ticket.find({})
+      .sort({ createdAt: -1 }) // Sort by creation date in descending order (latest first)
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .exec();
+
+    res.json({
+      tickets: tickets,
+      currentPage: page,
+      totalPages: totalPages
+    });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error", error: error });
   }
