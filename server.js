@@ -38,7 +38,7 @@ app.use(
     secret: secretKey,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, maxAge: 3600000 }, // 1 hour in milliseconds
+    cookie: { path: '/', secure: false, maxAge: 3600000 }, // 1 hour in milliseconds
   })
 );
 
