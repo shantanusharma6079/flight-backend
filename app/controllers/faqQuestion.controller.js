@@ -14,8 +14,12 @@ exports.createQuestion = async (req, res) => {
     if (!faq_Category) {
       return res.status(404).json({ error: "FAQ category not found" });
     }
-    const title = question.name;
-    faq_Category.questions.push({title, slug});
+
+    faq_Category.questions.push({
+      questionid: question._id,
+      title: question.name,
+      slug
+    });
     await faq_Category.save();
     res.status(201).json(question);
   } catch (error) {
@@ -34,6 +38,19 @@ exports.getQuestions = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.getQuestionBySlug = async (req, res) => {
+  try {
+    const {slug} = req.params;
+    const questions = await faqQuestion.find({slug});
+    if (!questions) {
+      return res.status(404).json({ error: "Question not found" });
+    }
+    res.json(questions[0]);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
 
 exports.updateQuestion = async (req, res) => {
   try {

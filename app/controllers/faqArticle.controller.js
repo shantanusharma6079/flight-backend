@@ -19,7 +19,7 @@ exports.createArticle = async (req, res) => {
       return res.status(404).json({ error: "FAQ question not found" });
     }
     faq_Question.faqArticles.push({
-      title: article.title,
+      title: article.articleData,
       slug: article.slug
     });
     await faq_Question.save();
@@ -37,6 +37,20 @@ exports.getArticles = async (req, res) => {
       return res.status(404).json({ error: "Article not found" });
     }
     res.json(article);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getArticleBySlug = async (req, res) => {
+  try {
+    const {slug} = req.params;
+    const article = await faqArticleModel.find({slug});
+
+    if (!article) {
+      return res.status(404).json({ error: "Article not found" });
+    }
+    res.json(article[0]);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

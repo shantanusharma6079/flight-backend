@@ -11,6 +11,7 @@ module.exports = (mongoose) => {
     },
     questions: [
       {
+        questionid: mongoose.Schema.Types.ObjectId,
         title: String,
         slug: String
       },

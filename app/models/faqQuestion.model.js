@@ -15,7 +15,7 @@ module.exports = (mongoose) => {
     },
     faqArticles: [
       {
-        title: String,
+        title: Object,
         slug: String
       },
     ],
