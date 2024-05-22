@@ -6,7 +6,7 @@ const FAQCategory = db.FAQCategory;
 exports.createQuestion = async (req, res) => {
   try {
     const { name, faqCategory } = req.body;
-    const slug = name.toLowerCase().replace(/[^\w\s]/gi, '').split(' ').join('-') + '-' + Math.floor(Math.random() * 1000);
+    const slug = name.en.name.toLowerCase().replace(/[^\w\s]/gi, '').split(' ').join('-') + '-' + Math.floor(Math.random() * 1000);
     const question = new faqQuestion({ name, slug, faqCategory });
     await question.save();
 

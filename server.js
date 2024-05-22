@@ -8,7 +8,7 @@ const session = require("express-session");
 const crypto = require("crypto");
 
 var corsOptions = {
-  origin: ["http://localhost:3000", "https://flight-project-five.vercel.app"],
+  origin: ["http://localhost:3000", "http://localhost:3001", "https://flight-project-five.vercel.app"],
   credentials: true
 };
 

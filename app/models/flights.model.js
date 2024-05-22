@@ -6,6 +6,7 @@ module.exports = mongoose => {
             Destination: Object,
             StopsNumber: Number,
             StopsName: Array,
+            Airline: String,
             PricePerTicket: Number
         },
         { timestamps: false }

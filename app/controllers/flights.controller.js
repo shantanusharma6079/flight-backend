@@ -30,6 +30,7 @@ exports.create = async (req, res) => {
             const flightDataList = journey;
             const saveFlightPromises = flightDataList.map(async (flight) => {
                 const origin = flight.FlightDetails.Details[0][0].Origin;
+                const airline = flight.FlightDetails.Details[0][0].OperatorName;
                 const destination = flight.FlightDetails.Details[0].slice(-1)[0].Destination;
                 const stopsNumber = flight.FlightDetails.Details[0].length - 1;
 
@@ -43,6 +44,7 @@ exports.create = async (req, res) => {
                     "StopsNumber": stopsNumber,
                     "StopsName": stops.map(stop => stop),
                     "Price": ticketPrice,
+                    "Airline": airline,
                     "Cabin": req.body.CabinClass
                 });
 

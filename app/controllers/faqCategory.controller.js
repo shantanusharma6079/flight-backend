@@ -4,11 +4,11 @@ const FAQCategory = db.FAQCategory;
 
 exports.createCategory = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { title } = req.body;
     // Generate slug from name
-    const slug = name.toLowerCase().replace(/[^\w\s]/gi, '').split(' ').join('-') + '-' + Math.floor(Math.random() * 1000);
+    const slug = title.en.name.toLowerCase().replace(/[^\w\s]/gi, '').split(' ').join('-') + '-' + Math.floor(Math.random() * 1000);
 
-    const category = new FAQCategory({ name, slug });
+    const category = new FAQCategory({ title, slug });
     await category.save();
 
     res.status(201).json(category);

@@ -479,7 +479,7 @@ exports.create = async (req, res) => {
 
   const filteredArray = removeDuplicates(arrayToInsert, 'title');
   var chunkedArray = splitArray(filteredArray, 10);
-  // console.log(chunkedArray)
+  console.log(chunkedArray)
 
   for await (const insertRecords of chunkedArray) {
 

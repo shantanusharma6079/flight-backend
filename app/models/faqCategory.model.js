@@ -1,7 +1,7 @@
 module.exports = (mongoose) => {
   var schema = mongoose.Schema({
-    name: {
-      type: String,
+    title: {
+      type: Object,
       required: true,
     },
     slug: {
@@ -12,7 +12,7 @@ module.exports = (mongoose) => {
     questions: [
       {
         questionid: mongoose.Schema.Types.ObjectId,
-        title: String,
+        title: Object,
         slug: String
       },
     ],

@@ -1,7 +1,7 @@
 module.exports = (mongoose) => {
   var schema = mongoose.Schema({
     name: {
-      type: String,
+      type: Object,
       required: true,
     },
     slug: {
