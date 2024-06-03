@@ -51,3 +51,17 @@ exports.sendEmail = async (req, res) => {
     res.status(500).send('Error sending emails');
   }
 };
+
+exports.delete = async (req, res) => {
+  const templateId = req.params.id;
+
+  EmailTemplate.findByIdAndDelete(templateId, (err, deletedTemplate) => {
+    if (err) {
+      return res.status(400).send("Error deleting template");
+    }
+    if (!deletedTemplate) {
+      return res.status(404).send("Template not found");
+    }
+    res.status(200).send("Template deleted successfully");
+  });
+};
